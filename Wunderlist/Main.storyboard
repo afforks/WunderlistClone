@@ -311,7 +311,7 @@
             </objects>
             <point key="canvasLocation" x="1165" y="472"/>
         </scene>
-        <!--Add List View Controller-->
+        <!--New List-->
         <scene sceneID="69Q-mI-jI6">
             <objects>
                 <viewController id="NH2-V4-yEE" customClass="AddListViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
@@ -328,18 +328,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCM-PN-ndh" userLabel="Create">
-                                <rect key="frame" x="22" y="155" width="50" height="30"/>
-                                <state key="normal" title="Create ">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addList:" destination="NH2-V4-yEE" eventType="touchUpInside" id="hZQ-WI-tOm"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4gz-bD-kJX">
-                                <rect key="frame" x="26" y="193" width="269" height="44"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4gz-bD-kJX">
+                                <rect key="frame" x="16" y="193" width="288" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="pI4-41-0Jx"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="np9-ZT-j42" customClass="addContactTableViewCell" customModule="Wunderlist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="163" height="44"/>
@@ -348,7 +342,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contact Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="be0-3H-Kgy">
-                                                    <rect key="frame" x="8" y="8" width="97" height="30"/>
+                                                    <rect key="frame" x="8" y="8" width="173" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -373,12 +367,29 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4gz-bD-kJX" firstAttribute="trailing" secondItem="ZNg-ai-YEV" secondAttribute="trailingMargin" id="7y9-nC-44Z"/>
                             <constraint firstItem="ANA-ry-lGu" firstAttribute="leading" secondItem="ZNg-ai-YEV" secondAttribute="leadingMargin" constant="-16" id="A6h-GF-eHz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ANA-ry-lGu" secondAttribute="trailing" constant="-16" id="Ba6-Rx-7Wj"/>
+                            <constraint firstItem="4gz-bD-kJX" firstAttribute="leading" secondItem="ZNg-ai-YEV" secondAttribute="leadingMargin" id="a7T-Da-wdz"/>
                             <constraint firstItem="ANA-ry-lGu" firstAttribute="top" secondItem="Cxo-ma-RoE" secondAttribute="bottom" constant="53" id="eBr-VL-KEQ"/>
-                            <constraint firstItem="bCM-PN-ndh" firstAttribute="leading" secondItem="ZNg-ai-YEV" secondAttribute="leadingMargin" id="kvV-dt-1Mh"/>
+                            <constraint firstItem="4gz-bD-kJX" firstAttribute="top" secondItem="ANA-ry-lGu" secondAttribute="bottom" constant="46" id="wAM-f2-y3B"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="New List" id="x7l-SC-J0x">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="UWB-vo-NsM">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bCM-PN-ndh" userLabel="Create">
+                                <rect key="frame" x="22" y="155" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Create ">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addList:" destination="NH2-V4-yEE" eventType="touchUpInside" id="hZQ-WI-tOm"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addContactTableView" destination="4gz-bD-kJX" id="vLE-5e-ouH"/>
                         <outlet property="addListLabel" destination="ANA-ry-lGu" id="vdh-JD-tx6"/>
