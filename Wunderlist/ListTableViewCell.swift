@@ -8,7 +8,9 @@
 
 import UIKit
 
-class UserTableViewCell: UITableViewCell {
+// tableViewCell representing a list
+
+class ListTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var cellImage: UIImageView!

@@ -9,8 +9,9 @@
 import UIKit
 
 
+// VC with all the items inside a particular list of the user
 
-class UserTabBarController: UIViewController, UITableViewDelegate {
+class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
     
     
     // the four tab bar items at the bottom
@@ -100,8 +101,8 @@ class UserTabBarController: UIViewController, UITableViewDelegate {
     
     
     
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UserViewController, animated: Bool) {
-        self.navigationController?.popToViewController(UserViewController(), animated: true)
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: ListViewController, animated: Bool) {
+        self.navigationController?.popToViewController(ListViewController(), animated: true)
         
     }
     
@@ -110,7 +111,7 @@ class UserTabBarController: UIViewController, UITableViewDelegate {
     func popToRoot(sender:UIBarButtonItem){
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
-        let vc = storyboard.instantiateViewControllerWithIdentifier("userVC") as UserViewController
+        let vc = storyboard.instantiateViewControllerWithIdentifier("userVC") as ListViewController
         
         
         self.navigationController?.pushViewController(vc, animated: true)

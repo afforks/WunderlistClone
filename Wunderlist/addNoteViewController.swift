@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+// VC used to add a note for a particular item
+
 class addNoteViewController: UIViewController {
     
     @IBOutlet weak var noteTextView: UITextView!

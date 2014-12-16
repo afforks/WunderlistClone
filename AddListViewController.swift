@@ -10,13 +10,11 @@ import UIKit
 import CoreData
 
 
+// VC that allows the user to add a list and add other list members (if the list is shared)
 
 class AddListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, addContactProtocol {
     
-    
-    
-    
-    
+
     @IBOutlet weak var addListLabel: UITextField!
     
     @IBOutlet weak var addContactLabel: UITextField!
@@ -89,7 +87,7 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
                     list["shared"] = true
                     
                     var storyboard = UIStoryboard(name: "Main", bundle: nil);
-                    var vc = storyboard.instantiateViewControllerWithIdentifier("userTBC") as UserTabBarController;
+                    var vc = storyboard.instantiateViewControllerWithIdentifier("userTBC") as itemsOfListTabBarController;
                     
                     vc.listName = self.addListLabel.text
                     
@@ -110,7 +108,7 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
                     // if list is not shared with any user
                 else {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil);
-                    var vc = storyboard.instantiateViewControllerWithIdentifier("userTBC") as UserTabBarController;
+                    var vc = storyboard.instantiateViewControllerWithIdentifier("userTBC") as itemsOfListTabBarController;
                     
                     vc.listName = self.addListLabel.text
                     

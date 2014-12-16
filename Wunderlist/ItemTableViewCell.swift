@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+// Cell representing an item of the list
+
 class ItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var starImageView: UIImageView!

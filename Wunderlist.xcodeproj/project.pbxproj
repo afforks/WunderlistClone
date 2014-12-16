@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		BD05549C19F194A700F3464B /* Wunderlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD05549A19F194A700F3464B /* Wunderlist.xcdatamodeld */; };
 		BD1E92CF19EA0F6300C91C53 /* CentrakPark1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = BD1E92CE19EA0F6300C91C53 /* CentrakPark1.JPG */; };
-		BD409D3419F8395F006CE43C /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD409D3319F8395F006CE43C /* UserTableViewCell.swift */; };
+		BD409D3419F8395F006CE43C /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD409D3319F8395F006CE43C /* ListTableViewCell.swift */; };
 		BD409D3819F84873006CE43C /* Starred.png in Resources */ = {isa = PBXBuildFile; fileRef = BD409D3719F84873006CE43C /* Starred.png */; };
 		BD409D3A19F848C5006CE43C /* Inbox.png in Resources */ = {isa = PBXBuildFile; fileRef = BD409D3919F848C5006CE43C /* Inbox.png */; };
 		BD409D3C19F8493F006CE43C /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = BD409D3B19F8493F006CE43C /* calendar.png */; };
@@ -21,7 +21,7 @@
 		BDA5998319E460A900442B6A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5998019E460A900442B6A /* Bolts.framework */; };
 		BDA5998419E460A900442B6A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5998119E460A900442B6A /* Parse.framework */; };
 		BDA5998519E460A900442B6A /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5998219E460A900442B6A /* ParseFacebookUtils.framework */; };
-		BDA5998719E461B500442B6A /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5998619E461B500442B6A /* UserViewController.swift */; };
+		BDA5998719E461B500442B6A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5998619E461B500442B6A /* ListViewController.swift */; };
 		BDA5998919E462EE00442B6A /* defaultimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDA5998819E462EE00442B6A /* defaultimage.jpg */; };
 		BDA5998D19E46FA500442B6A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5998C19E46FA500442B6A /* AudioToolbox.framework */; };
 		BDA5998F19E46FB900442B6A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5998E19E46FB900442B6A /* CFNetwork.framework */; };
@@ -46,7 +46,8 @@
 		BDC5292C19F837D300940D46 /* calendar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC5292A19F837D300940D46 /* calendar@3x.png */; };
 		BDDA301A19E5E31F000CFDEC /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDA301919E5E31F000CFDEC /* SignUpViewController.swift */; };
 		BDDA301D19E5E70B000CFDEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDA301B19E5E70B000CFDEC /* AppDelegate.swift */; };
-		BDDA301E19E5E70B000CFDEC /* UserTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDA301C19E5E70B000CFDEC /* UserTabBarController.swift */; };
+		BDDA301E19E5E70B000CFDEC /* itemsOfListTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDA301C19E5E70B000CFDEC /* itemsOfListTabBarController.swift */; };
+		BDDA611C1A3FD12200EDD005 /* wunderlistLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA611B1A3FD12200EDD005 /* wunderlistLogo@2x.png */; };
 		BDE01AAD1A02C5E8006ACEAB /* itemContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE01AAC1A02C5E8006ACEAB /* itemContentViewController.swift */; };
 		BDE01AAF1A02D337006ACEAB /* addNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE01AAE1A02D337006ACEAB /* addNoteViewController.swift */; };
 		BDF66FFF1A33CCA500E1E072 /* addContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF66FFE1A33CCA500E1E072 /* addContactTableViewCell.swift */; };
@@ -66,7 +67,7 @@
 /* Begin PBXFileReference section */
 		BD05549B19F194A700F3464B /* Wunderlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wunderlist.xcdatamodel; sourceTree = "<group>"; };
 		BD1E92CE19EA0F6300C91C53 /* CentrakPark1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CentrakPark1.JPG; sourceTree = "<group>"; };
-		BD409D3319F8395F006CE43C /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		BD409D3319F8395F006CE43C /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		BD409D3719F84873006CE43C /* Starred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Starred.png; sourceTree = "<group>"; };
 		BD409D3919F848C5006CE43C /* Inbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Inbox.png; sourceTree = "<group>"; };
 		BD409D3B19F8493F006CE43C /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
@@ -82,7 +83,7 @@
 		BDA5998019E460A900442B6A /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		BDA5998119E460A900442B6A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		BDA5998219E460A900442B6A /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
-		BDA5998619E461B500442B6A /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserViewController.swift; path = ../UserViewController.swift; sourceTree = "<group>"; };
+		BDA5998619E461B500442B6A /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = ../ListViewController.swift; sourceTree = "<group>"; };
 		BDA5998819E462EE00442B6A /* defaultimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = defaultimage.jpg; sourceTree = "<group>"; };
 		BDA5998C19E46FA500442B6A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		BDA5998E19E46FB900442B6A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -108,7 +109,8 @@
 		BDC5292A19F837D300940D46 /* calendar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar@3x.png"; sourceTree = "<group>"; };
 		BDDA301919E5E31F000CFDEC /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpViewController.swift; path = ../SignUpViewController.swift; sourceTree = "<group>"; };
 		BDDA301B19E5E70B000CFDEC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = SOURCE_ROOT; };
-		BDDA301C19E5E70B000CFDEC /* UserTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTabBarController.swift; sourceTree = SOURCE_ROOT; };
+		BDDA301C19E5E70B000CFDEC /* itemsOfListTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemsOfListTabBarController.swift; sourceTree = SOURCE_ROOT; };
+		BDDA611B1A3FD12200EDD005 /* wunderlistLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wunderlistLogo@2x.png"; sourceTree = "<group>"; };
 		BDE01AAC1A02C5E8006ACEAB /* itemContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemContentViewController.swift; sourceTree = "<group>"; };
 		BDE01AAE1A02D337006ACEAB /* addNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addNoteViewController.swift; sourceTree = "<group>"; };
 		BDF66FFE1A33CCA500E1E072 /* addContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addContactTableViewCell.swift; sourceTree = "<group>"; };
@@ -170,17 +172,17 @@
 			isa = PBXGroup;
 			children = (
 				BDDA301B19E5E70B000CFDEC /* AppDelegate.swift */,
-				BDE01AAE1A02D337006ACEAB /* addNoteViewController.swift */,
-				BDE01AAC1A02C5E8006ACEAB /* itemContentViewController.swift */,
-				BDA997DF1A016A9D0077273E /* subtaskTableViewCell.swift */,
-				BDDA301C19E5E70B000CFDEC /* UserTabBarController.swift */,
-				BDC09FB71A13F3A700D574BC /* ItemTableViewCell.swift */,
 				BDA599A619E476C200442B6A /* WelcomeViewController.swift */,
 				BDDA301919E5E31F000CFDEC /* SignUpViewController.swift */,
-				BDA5998619E461B500442B6A /* UserViewController.swift */,
-				BD409D3319F8395F006CE43C /* UserTableViewCell.swift */,
+				BDA5998619E461B500442B6A /* ListViewController.swift */,
+				BD409D3319F8395F006CE43C /* ListTableViewCell.swift */,
 				BDA5997D19E4602900442B6A /* AddListViewController.swift */,
 				BDF66FFE1A33CCA500E1E072 /* addContactTableViewCell.swift */,
+				BDDA301C19E5E70B000CFDEC /* itemsOfListTabBarController.swift */,
+				BDC09FB71A13F3A700D574BC /* ItemTableViewCell.swift */,
+				BDE01AAC1A02C5E8006ACEAB /* itemContentViewController.swift */,
+				BDA997DF1A016A9D0077273E /* subtaskTableViewCell.swift */,
+				BDE01AAE1A02D337006ACEAB /* addNoteViewController.swift */,
 				BDF670021A3548E100E1E072 /* Main.storyboard */,
 				BD05549A19F194A700F3464B /* Wunderlist.xcdatamodeld */,
 				BDA5995F19E45FCE00442B6A /* Images.xcassets */,
@@ -220,6 +222,7 @@
 		BDA5998A19E4630700442B6A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BDDA611B1A3FD12200EDD005 /* wunderlistLogo@2x.png */,
 				BD6CB4EA1A366A6000F8EB54 /* shared.png */,
 				BDC09FC31A16D9BD00D574BC /* browsers@2x.png */,
 				BDC09FC11A16D9A200D574BC /* world_times@2x.png */,
@@ -352,6 +355,7 @@
 				BDF670031A3548E100E1E072 /* Main.storyboard in Resources */,
 				BDA5998919E462EE00442B6A /* defaultimage.jpg in Resources */,
 				BDA5996319E45FCE00442B6A /* LaunchScreen.xib in Resources */,
+				BDDA611C1A3FD12200EDD005 /* wunderlistLogo@2x.png in Resources */,
 				BDA5996019E45FCE00442B6A /* Images.xcassets in Resources */,
 				BDC09FBE1A16D8A200D574BC /* contacts@2x.png in Resources */,
 			);
@@ -378,11 +382,11 @@
 				BD05549C19F194A700F3464B /* Wunderlist.xcdatamodeld in Sources */,
 				BDC09FB81A13F3A700D574BC /* ItemTableViewCell.swift in Sources */,
 				BDA5997F19E4602900442B6A /* AddListViewController.swift in Sources */,
-				BD409D3419F8395F006CE43C /* UserTableViewCell.swift in Sources */,
+				BD409D3419F8395F006CE43C /* ListTableViewCell.swift in Sources */,
 				BDA997E01A016A9D0077273E /* subtaskTableViewCell.swift in Sources */,
 				BDDA301D19E5E70B000CFDEC /* AppDelegate.swift in Sources */,
-				BDDA301E19E5E70B000CFDEC /* UserTabBarController.swift in Sources */,
-				BDA5998719E461B500442B6A /* UserViewController.swift in Sources */,
+				BDDA301E19E5E70B000CFDEC /* itemsOfListTabBarController.swift in Sources */,
+				BDA5998719E461B500442B6A /* ListViewController.swift in Sources */,
 				BDE01AAD1A02C5E8006ACEAB /* itemContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,7 +501,6 @@
 		BDA5997319E45FCE00442B6A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -514,7 +517,6 @@
 		BDA5997419E45FCE00442B6A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

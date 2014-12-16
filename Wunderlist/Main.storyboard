@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--User View Controller-->
+        <!--List View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="userVC" id="vXZ-lx-hvc" customClass="UserViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userVC" id="vXZ-lx-hvc" customClass="ListViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5Ol-cZ-A4A"/>
                         <viewControllerLayoutGuide type="bottom" id="ka0-Ip-kbL"/>
@@ -54,7 +54,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="0.16" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="F9h-lt-wi9" customClass="UserTableViewCell" customModule="Wunderlist" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="F9h-lt-wi9" customClass="ListTableViewCell" customModule="Wunderlist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F9h-lt-wi9" id="kQN-6e-jTg">
@@ -429,7 +429,7 @@
         <!--User Table View Controller-->
         <scene sceneID="ZPq-9d-yRC">
             <objects>
-                <viewController storyboardIdentifier="userTBC" title="User Table View Controller" id="Adi-YH-2QA" customClass="UserTabBarController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userTBC" title="User Table View Controller" id="Adi-YH-2QA" customClass="itemsOfListTabBarController" customModule="Wunderlist" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FjF-iO-vmm"/>
                         <viewControllerLayoutGuide type="bottom" id="mmC-UI-v3s"/>

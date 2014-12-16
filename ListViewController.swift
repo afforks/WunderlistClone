@@ -8,8 +8,10 @@
 
 import UIKit
 
+// VC with all the lists of the user
 
-class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate
+
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate
 {
     
     @IBOutlet weak var tableView: UITableView!
@@ -340,12 +342,12 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? UserTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? ListTableViewCell
         
         
         
         if (cell == nil) {
-            let cell = UserTableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
+            let cell = ListTableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
             
         }
         
@@ -451,7 +453,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
-        let cell: UserTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as UserTableViewCell!
+        let cell: ListTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as ListTableViewCell!
         
         var listName = ""
         if cell.cellTextLabel!.text != "" {
@@ -462,7 +464,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             // transfer necessary info (listName, owner of the list) to the VC presenting the items in the list
             let storyboard = UIStoryboard(name: "Main", bundle: nil);
-            let vc = storyboard.instantiateViewControllerWithIdentifier("userTBC") as UserTabBarController;
+            let vc = storyboard.instantiateViewControllerWithIdentifier("userTBC") as itemsOfListTabBarController;
             
             
             vc.listName = listName

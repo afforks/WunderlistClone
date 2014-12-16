@@ -9,6 +9,7 @@
 import UIKit
 
 
+// VC with Sign Up Instructions
 
 class SignUpViewController: UIViewController {
     
@@ -87,7 +88,7 @@ class SignUpViewController: UIViewController {
     func goToApp() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
-        let vc = storyboard.instantiateViewControllerWithIdentifier("userVC") as UserViewController
+        let vc = storyboard.instantiateViewControllerWithIdentifier("userVC") as ListViewController
         
     
         self.navigationController?.pushViewController(vc, animated: true)

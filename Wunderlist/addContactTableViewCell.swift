@@ -11,6 +11,9 @@ import UIKit
 protocol addContactProtocol {
     func addContact(cellText: String)
 }
+
+// Cell representing a contact (a list member in a shared list)
+
 class addContactTableViewCell: UITableViewCell {
 
     var delegate: addContactProtocol?

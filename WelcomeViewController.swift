@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+// VC with Login Instructions
+
+
 class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var usernameLabel: UITextField!
@@ -140,7 +144,7 @@ class WelcomeViewController: UIViewController {
     func goToApp() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
-        let vc = storyboard.instantiateViewControllerWithIdentifier("userVC") as UserViewController
+        let vc = storyboard.instantiateViewControllerWithIdentifier("userVC") as ListViewController
         
         self.navigationController?.pushViewController(vc, animated: true)
         

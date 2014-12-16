@@ -9,7 +9,7 @@
 import UIKit
 
 
-// send the items to the previous VCs
+// VC representing the itemContent (dueDate, reminder, subtasks, note...) of a list item
 
 
 class itemContentViewController: UIViewController, UITableViewDelegate, addToItemDictProtocol  {
