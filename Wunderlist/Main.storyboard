@@ -314,6 +314,7 @@
         <!--New List-->
         <scene sceneID="69Q-mI-jI6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vbd-U0-PaA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="NH2-V4-yEE" customClass="AddListViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cxo-ma-RoE"/>
@@ -323,43 +324,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="List Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ANA-ry-lGu">
-                                <rect key="frame" x="0.0" y="117" width="320" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="List Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ANA-ry-lGu">
+                                <rect key="frame" x="0.0" y="64" width="320" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="s4d-tg-U1P"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4gz-bD-kJX">
-                                <rect key="frame" x="16" y="193" width="288" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List Members" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9g-ez-ErH">
+                                <rect key="frame" x="16" y="124" width="157" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="bDm-67-AmA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="03W-6W-e1q">
+                                <rect key="frame" x="0.0" y="153" width="320" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="pI4-41-0Jx"/>
+                                    <constraint firstAttribute="height" constant="44" id="OcW-b9-9C3"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="np9-ZT-j42" customClass="addContactTableViewCell" customModule="Wunderlist" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="0mp-3G-fkU" customClass="addContactTableViewCell" customModule="Wunderlist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="163" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="np9-ZT-j42" id="jTL-ks-Xgi">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0mp-3G-fkU" id="EHI-sG-haF">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contact Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="be0-3H-Kgy">
-                                                    <rect key="frame" x="8" y="8" width="173" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contact Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J0l-v6-Rr8">
+                                                    <rect key="frame" x="8" y="8" width="240" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Doz-Gg-5RL">
-                                                    <rect key="frame" x="215" y="0.0" width="46" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uol-Ge-mP7">
+                                                    <rect key="frame" x="282" y="7" width="30" height="30"/>
                                                     <state key="normal" title="Add">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="addContact:" destination="np9-ZT-j42" eventType="touchUpInside" id="DTU-1c-5aE"/>
+                                                        <action selector="addContact:" destination="0mp-3G-fkU" eventType="touchUpInside" id="iHk-bE-5Wv"/>
+                                                        <action selector="addList:" destination="NH2-V4-yEE" eventType="touchUpInside" id="CEg-Il-hZI"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="J0l-v6-Rr8" firstAttribute="top" secondItem="EHI-sG-haF" secondAttribute="topMargin" id="9DH-Lt-cpc"/>
+                                                <constraint firstItem="Uol-Ge-mP7" firstAttribute="trailing" secondItem="EHI-sG-haF" secondAttribute="trailingMargin" id="Bpd-7I-GXJ"/>
+                                                <constraint firstItem="Uol-Ge-mP7" firstAttribute="leading" secondItem="J0l-v6-Rr8" secondAttribute="trailing" constant="34" id="Cdt-yr-kSv"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="J0l-v6-Rr8" secondAttribute="bottom" constant="-2" id="Rfg-P8-OrT"/>
+                                                <constraint firstItem="J0l-v6-Rr8" firstAttribute="leading" secondItem="EHI-sG-haF" secondAttribute="leadingMargin" id="mOA-yW-4bh"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Uol-Ge-mP7" secondAttribute="bottom" constant="-1" id="p2G-HF-i4N"/>
+                                                <constraint firstItem="Uol-Ge-mP7" firstAttribute="top" secondItem="EHI-sG-haF" secondAttribute="topMargin" constant="-1" id="u3c-6A-UI9"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addContactButton" destination="Doz-Gg-5RL" id="j8c-CG-955"/>
-                                            <outlet property="contactUsername" destination="be0-3H-Kgy" id="Duz-O8-U1y"/>
+                                            <outlet property="addContactButton" destination="Uol-Ge-mP7" id="2iJ-cX-sdg"/>
+                                            <outlet property="contactUsername" destination="J0l-v6-Rr8" id="YEU-bX-RDx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -367,12 +391,15 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="4gz-bD-kJX" firstAttribute="trailing" secondItem="ZNg-ai-YEV" secondAttribute="trailingMargin" id="7y9-nC-44Z"/>
+                            <constraint firstItem="p9g-ez-ErH" firstAttribute="leading" secondItem="ZNg-ai-YEV" secondAttribute="leadingMargin" id="0Ce-gv-gSe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="03W-6W-e1q" secondAttribute="trailing" constant="-16" id="3AZ-ta-fYX"/>
                             <constraint firstItem="ANA-ry-lGu" firstAttribute="leading" secondItem="ZNg-ai-YEV" secondAttribute="leadingMargin" constant="-16" id="A6h-GF-eHz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ANA-ry-lGu" secondAttribute="trailing" constant="-16" id="Ba6-Rx-7Wj"/>
-                            <constraint firstItem="4gz-bD-kJX" firstAttribute="leading" secondItem="ZNg-ai-YEV" secondAttribute="leadingMargin" id="a7T-Da-wdz"/>
-                            <constraint firstItem="ANA-ry-lGu" firstAttribute="top" secondItem="Cxo-ma-RoE" secondAttribute="bottom" constant="53" id="eBr-VL-KEQ"/>
-                            <constraint firstItem="4gz-bD-kJX" firstAttribute="top" secondItem="ANA-ry-lGu" secondAttribute="bottom" constant="46" id="wAM-f2-y3B"/>
+                            <constraint firstItem="ANA-ry-lGu" firstAttribute="top" secondItem="Cxo-ma-RoE" secondAttribute="bottom" id="Knp-H5-SfD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="p9g-ez-ErH" secondAttribute="trailing" constant="131" id="RkO-ag-M7Y"/>
+                            <constraint firstItem="03W-6W-e1q" firstAttribute="top" secondItem="p9g-ez-ErH" secondAttribute="bottom" constant="8" id="eSU-kU-z1T"/>
+                            <constraint firstItem="03W-6W-e1q" firstAttribute="leading" secondItem="ZNg-ai-YEV" secondAttribute="leadingMargin" constant="-16" id="i4q-ha-pkp"/>
+                            <constraint firstItem="p9g-ez-ErH" firstAttribute="top" secondItem="ANA-ry-lGu" secondAttribute="bottom" constant="30" id="tGt-Xn-JZw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New List" id="x7l-SC-J0x">
@@ -380,6 +407,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bCM-PN-ndh" userLabel="Create">
                                 <rect key="frame" x="22" y="155" width="50" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="Create ">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -391,11 +419,10 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addContactTableView" destination="4gz-bD-kJX" id="vLE-5e-ouH"/>
+                        <outlet property="addContactTableView" destination="03W-6W-e1q" id="yNa-YI-MOV"/>
                         <outlet property="addListLabel" destination="ANA-ry-lGu" id="vdh-JD-tx6"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vbd-U0-PaA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1891" y="268"/>
         </scene>

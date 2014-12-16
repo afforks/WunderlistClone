@@ -16,7 +16,7 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
-
+    
     @IBOutlet weak var addListLabel: UITextField!
     
     @IBOutlet weak var addContactLabel: UITextField!
@@ -103,10 +103,10 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
                         
                         
                     })
-
+                    
                 }
-                
-          
+                    
+                    
                     // if list is not shared with any user
                 else {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil);
@@ -121,11 +121,11 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
                     list["shared"] = false
                     list.saveInBackgroundWithBlock({ (succeeded: Bool!, error: NSError!) -> Void in
                         
-        
+                        
                         self.navigationController!.pushViewController(vc, animated: true)
                         
                         
-
+                        
                     })
                     
                 }
@@ -161,33 +161,34 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
-
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? addContactTableViewCell
-            cell!.delegate = self
-            
-            
-            
-            
-            
-            
-            
-            
-            return cell!
-       
-
-       
-            
         
-       
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? addContactTableViewCell
+        cell!.delegate = self
+        
+        
+        
+        
+        
+        
+        
+        
+        return cell!
+        
+        
+        
+        
+        
+        
         
         
         
     }
     
-
+    
     
     func addContact(cellText: String) {
         
@@ -211,16 +212,16 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.addContactTableView.reloadData()
             
             
-         
             
-      
+            
+            
         }
         
         
     }
     
     
-   
+    
     
     func checkIfUsernameIsValidThenAddIfValid(cellText: String) {
         
@@ -239,15 +240,15 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 self.addContactLabel.enabled = false
                 self.updateViewSizes()
-               
+                
                 
                 self.addContactTableView.reloadData()
                 
-            
                 
-
+                
+                
             }
-            
+                
             else {
                 
                 self.addContactLabel.enabled = true
@@ -261,7 +262,7 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
-       
+        
     }
     
     func tableView(tableView:  UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -271,7 +272,7 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-     
+    
     
     func  updateViewSizes() {
         
