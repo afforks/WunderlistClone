@@ -1186,7 +1186,7 @@ class UserTabBarController: UIViewController, UITableViewDelegate {
             vc.starred = isStarred
             
             
-            NSThread.sleepForTimeInterval(0.6)
+            NSThread.sleepForTimeInterval(0.1)
             
             self.navigationController?.pushViewController(vc, animated: true)
             
@@ -1219,7 +1219,7 @@ class UserTabBarController: UIViewController, UITableViewDelegate {
                 
             }
             
-            NSThread.sleepForTimeInterval(0.6)
+            NSThread.sleepForTimeInterval(0.1)
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -1241,7 +1241,7 @@ class UserTabBarController: UIViewController, UITableViewDelegate {
           }
            
             
-            NSThread.sleepForTimeInterval(0.6)
+            NSThread.sleepForTimeInterval(0.1)
 
             self.navigationController?.pushViewController(vc, animated: true)
         }

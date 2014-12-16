@@ -314,7 +314,6 @@
         <!--New List-->
         <scene sceneID="69Q-mI-jI6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vbd-U0-PaA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="NH2-V4-yEE" customClass="AddListViewController" customModule="Wunderlist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cxo-ma-RoE"/>
@@ -423,6 +422,7 @@
                         <outlet property="addListLabel" destination="ANA-ry-lGu" id="vdh-JD-tx6"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vbd-U0-PaA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1891" y="268"/>
         </scene>
