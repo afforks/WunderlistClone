@@ -59,11 +59,11 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
     var originalUserOfList: PFUser? = nil
     
     var areWeOriginalUserOfList: Bool? = nil
-    var dueDateString = "due date"
+    var dueDateString = "Due Date"
     
-    var repeatDateString = "repeat"
+    var repeatDateString = "Eepeat"
     
-    var reminderDate = "reminder"
+    var reminderDate = "Reminder"
     
     var itemDictionary = Dictionary<String, AnyObject>()
     var itemDictSubtaskList = [String]()
@@ -79,6 +79,8 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
     // Change
     var dueDate: NSDate? = nil
     
+    var isChecked: Bool?
+    
     @IBOutlet weak var subtaskHeightConstraint: NSLayoutConstraint!
     
     
@@ -93,8 +95,26 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
     
     override func viewDidLoad() {
         
+        println(" IS IT CHECKED \(isChecked)")
         super.viewDidLoad()
+
         
+
+        
+        self.dueDateTableView.separatorInset = UIEdgeInsetsZero
+        self.dueDateTableView.layoutMargins = UIEdgeInsetsZero
+        
+        self.dueDateTableView.layer.cornerRadius = 5
+        
+        self.reminderTableView.separatorInset = UIEdgeInsetsZero
+        self.reminderTableView.layoutMargins = UIEdgeInsetsZero
+        self.reminderTableView.layer.cornerRadius = 5
+        
+        self.subtaskTableView.separatorInset = UIEdgeInsetsZero
+        self.subtaskTableView.layoutMargins = UIEdgeInsetsZero
+        self.subtaskTableView.layer.cornerRadius = 5
+        
+        self.addNoteView.layer.cornerRadius = 5
         
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -267,6 +287,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                                 self.noteTextView.text = self.note
                             }
                             
+                        
                             
                             if item["originalUser"] != nil {
                                 let user = item["originalUser"]! as PFUser
@@ -346,6 +367,10 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
             return 2
         }
         
+        if (tableView == reminderTableView) {
+            return 1
+        }
+        
         if (tableView == dateTableView) {
             return 4
         }
@@ -377,14 +402,19 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         
         if (tableView == dueDateTableView) {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-            
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as dueDateTableViewCell
+            cell.layoutMargins = UIEdgeInsetsZero
+           
             if indexPath.row == 0 {
-                cell.textLabel!.text = self.dueDateString
+                cell.label!.text = self.dueDateString
+                cell.label!.textColor = UIColor.blueColor()
+                cell.reminderImageView.image = UIImage(named: "calendar.png")
             }
             
             if indexPath.row == 1 {
-                cell.textLabel!.text = self.repeatDateString
+                cell.label!.text = self.repeatDateString
+                cell.label!.textColor = UIColor.blueColor()
+                cell.reminderImageView.image = UIImage(named:"Repeat.jpg")
             }
             
             
@@ -394,14 +424,17 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         
         if (tableView == reminderTableView) {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel!.text = self.reminderDate
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as reminderTableViewCell
+            cell.layoutMargins = UIEdgeInsetsZero
+            cell.label!.text = self.reminderDate
+            cell.label!.textColor = UIColor.redColor()
             
             return cell
         }
         
         if (tableView == dateTableView) {
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+            cell.layoutMargins = UIEdgeInsetsZero
             var cellString = ""
             
             
@@ -446,7 +479,8 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
             
             
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? subtaskTableViewCell
-            
+            cell!.layoutMargins = UIEdgeInsetsZero
+      
             
             cell!.delegate = self
             
@@ -502,9 +536,19 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell? {
         
+        
+        /*
+        if (isChecked == true) {
+        
+            return nil
+        }
+*/
         self.noteTextView.hidden = true
         
         if (tableView == dueDateTableView) {
+            
+            
+        
             var  cell = tableView.cellForRowAtIndexPath(indexPath)!
             
             
@@ -557,6 +601,8 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         // the repeat tableView
         
         if (tableView == dateTableView) {
+            
+           
             var  cell = tableView.cellForRowAtIndexPath(indexPath)!
             self.repeatDateString = cell.textLabel!.text!
             
@@ -565,6 +611,8 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         }
         
         if (tableView == reminderTableView) {
+            
+        
             showDateAndTimePicker()
             
         }
@@ -572,6 +620,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         
         
         if (tableView == subtaskTableView) {
+            
             
             self.noteTextView.hidden = false
             self.datePickerView.hidden = true
@@ -806,7 +855,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         
         if self.didSelectReminderCell == true {
             self.didSelectReminderCell = false
-            self.reminderDate = "reminder"
+            self.reminderDate = "Reminder"
             self.itemDictionary["reminderDate"] = ""
             self.addOrRemoveNewItemDictKeyValueToParse("reminderDate", value: "", remove: true)
             self.reminderTableView.reloadData()
@@ -818,6 +867,8 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         self.noteTextView.hidden = false
         
     }
+    
+    // if we addSubtask: then change the icon
     
     
     
@@ -912,9 +963,11 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                             
                             if remove == true {
                                 // remove old object
+                                
+                                var itemCopy = item
                                 arrayItems.removeObject(item)
-                                item[key] = nil
-                                arrayItems.addObject(item)
+                                itemCopy[key] = nil
+                                arrayItems.addObject(itemCopy)
                                 
                                 list.saveInBackgroundWithBlock({ (succeeded: Bool!, error: NSError!) -> Void in
                                     
@@ -928,11 +981,12 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                                 if (key == "subtaskList") {
                                     
                                     if item[key] == nil {
+                                        var itemCopy = item
                                         arrayItems.removeObject(item)
                                         var subtaskList = NSMutableArray()
                                         subtaskList.addObject(value)
-                                        item[key] = subtaskList
-                                        arrayItems.addObject(item)
+                                        itemCopy[key] = subtaskList
+                                        arrayItems.addObject(itemCopy)
                                         list.saveInBackgroundWithBlock({ (succeeded: Bool!, error: NSError!) -> Void in
                                             
                                             return
@@ -942,10 +996,11 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                                     else {
                                         var subtaskList = item[key]! as NSMutableArray
                                         
+                                        var itemCopy = item
                                         arrayItems.removeObject(item)
                                         subtaskList.addObject(value)
-                                        item[key] = subtaskList
-                                        arrayItems.addObject(item)
+                                        itemCopy[key] = subtaskList
+                                        arrayItems.addObject(itemCopy)
                                         list.saveInBackgroundWithBlock({ (succeeded: Bool!, error: NSError!) -> Void in
                                             
                                             return
@@ -958,9 +1013,13 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                                     
                                     
                                 else {
+                                    
+                                    var itemCopy = item
                                     arrayItems.removeObject(item)
-                                    item[key] = value
-                                    arrayItems.addObject(item)
+                                    
+                                    
+                                    itemCopy[key] = value
+                                    arrayItems.addObject(itemCopy)
                                     list.saveInBackgroundWithBlock({ (succeeded: Bool!, error: NSError!) -> Void in
                                         
                                         return
@@ -989,8 +1048,6 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
             let viewController:addNoteViewController = segue.destinationViewController as addNoteViewController
             
             viewController.delegate = self
-            
-            
             viewController.itemName = self.itemName
             viewController.listName = self.listName
             
@@ -1073,25 +1130,27 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                         
                         if remove == false {
                             
-                            
-                            for item in itemsArray! {
+                            if itemsArray != nil {
                                 
-                                // the item is already there so don't add it another time
-                                var itemString = item["name"] as String
-                                if itemString == itemNameString {
-                                    // remove old object
-                                    itemsArray!.removeObject(item)
+                                for item in itemsArray! {
+                                    
+                                    // the item is already there so don't add it another time
+                                    var itemString = item["name"] as String
+                                    if itemString == itemNameString {
+                                        // remove old object
+                                        itemsArray!.removeObject(item)
+                                    }
+                                    
                                 }
                                 
+                                
+                                
+                                itemsArray!.addObject(itemDict)
+                                list["items"] = itemsArray
+                                list["numberOfItems"] = itemsArray!.count
+                                
+                                list.saveInBackground()
                             }
-                            
-                            
-                            
-                            itemsArray!.addObject(itemDict)
-                            list["items"] = itemsArray
-                            list["numberOfItems"] = itemsArray!.count
-                            
-                            list.saveInBackground()
                         }
                             
                         else {
@@ -1605,10 +1664,24 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         }
     }
     
-    func addNote(note: String) {
-        self.noteTextView.text = note
-        self.itemDictionary["note"] = note
-        self.addOrRemoveNewItemDictKeyValueToParse("note", value: note, remove: false)
+    func addNote(noteString: String) {
+        self.noteTextView.text = noteString
+        
+        
+        let noteString: String? = noteString
+        if noteString != nil {
+           
+            self.addOrRemoveNewItemDictKeyValueToParse("note", value: noteString!, remove: false)
+            if self.itemDictionary["note"] != nil {
+        
+                println(self.itemDictionary["note"])
+                println("NoteString:  \(noteString)")
+                self.itemDictionary["note"]! = noteString!
+            }
+          //
+        }
+        
+        
     }
     /*
     // MARK: - Navigation

@@ -26,6 +26,7 @@ class AddListViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         
         addListLabel.becomeFirstResponder()

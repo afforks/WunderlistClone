@@ -10,8 +10,14 @@ import UIKit
 
 // VC with all the lists of the user
 
+// TO VERIFY IF TWO PFUSER ARE THE SAME IN AN ARRAY OF USER FROM PARSE: CREATE A FOR LOOP IN THE ARRAY OF USER OF PARSE AND COMPARE THE OBJECTID (NOT THE TWO USERS) TO SEE IF THEY ARE THE SAME
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate
+var globalUserImage: UIImage?
+var globalBackgroundImage: UIImage?
+
+var loadedBackgroundAndUserImage: Bool?
+
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, changeBackgroundOrImageProtocol
 {
     
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +30,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var originalUserOfList: PFUser? = nil
     
     
+
+    @IBOutlet weak var backgroundView: UIImageView!
     
     
     // array containing Dictionaries of lists
@@ -35,12 +43,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.backgroundView.contentMode = UIViewContentMode.ScaleToFill
         
-        
+        userImage.contentMode = UIViewContentMode.ScaleAspectFill
         
         // if there is a parse user connected show the name and username of the user
         
         let user = PFUser.currentUser() as PFUser!
+        
+    
         
         if (user != nil) {
             
@@ -57,6 +68,33 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.loadListsWhereWeAreTheOwner()
         self.tableView.reloadData()
         
+       if (user != nil && (loadedBackgroundAndUserImage != true)) {
+              self.loadUserImageAndBackground()
+        }
+      
+       else {
+        
+        
+        if globalBackgroundImage != nil {
+             self.backgroundView.image = globalBackgroundImage
+        }
+        
+        else {
+            self.backgroundView.image = UIImage(named: "CentrakPark1.JPG")
+        }
+        
+        
+        if globalUserImage != nil {
+                   self.backgroundView.image = globalBackgroundImage
+        }
+        
+        else {
+     
+            self.userImage.image = UIImage(named: "defaultimage.jpg")
+
+
+        }
+            }
         
         
         
@@ -80,8 +118,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             userEmail.text = user.objectForKey("email") as? String
         }
         
-        
-        
+    
         
         
         self.tableView.backgroundColor = UIColor.clearColor()
@@ -201,6 +238,66 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return finished
     }
     
+    
+    func loadUserImageAndBackground() {
+        var query = PFQuery(className:"_User")
+        
+        query.findObjectsInBackgroundWithBlock() {
+            (objects:[AnyObject]!, error:NSError!)->Void in
+            if ((error) == nil) {
+                
+                if (objects.count > 0) {
+                    let user: PFUser = objects.last as PFUser
+                    var imageFile: PFFile? = user["imageFile"] as? PFFile
+                    
+                    if (imageFile != nil) {
+                        imageFile!.getDataInBackgroundWithBlock({
+                            (imageData: NSData!, error: NSError!) in
+                            if (error == nil) {
+                                let image : UIImage = UIImage(data:imageData)!
+                                //image object implementation
+                                
+                                self.userImage.image = image
+                                globalUserImage = image
+                            }
+                            
+                            
+                        })
+                        
+                        
+                    }
+                    
+                    var backgroundImageFile: PFFile? = user["backgroundImageFile"] as? PFFile
+                    
+                    if (backgroundImageFile != nil) {
+                        backgroundImageFile!.getDataInBackgroundWithBlock({
+                            (imageData: NSData!, error: NSError!) in
+                            if (error == nil) {
+                                let image : UIImage = UIImage(data:imageData)!
+                                //image object implementation
+                                
+                                self.backgroundView.image = image
+                                globalBackgroundImage = image
+                            }
+                            
+                        
+                        
+                        })
+
+                    }
+                    
+                }
+               
+                
+                
+            }
+            
+
+            }
+        
+        loadedBackgroundAndUserImage = true
+        
+    }
     // load the list that other users has shared with user
     func loadListsWhereWeAreContacts() -> Bool{
         
@@ -466,10 +563,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             let storyboard = UIStoryboard(name: "Main", bundle: nil);
             let vc = storyboard.instantiateViewControllerWithIdentifier("userTBC") as itemsOfListTabBarController;
             
-            
+                        
             vc.listName = listName
+          
+            println(indexPath.row)
+            
+            println(arrayOfListsDictionaries[indexPath.row] )
             
             var listDictionary = arrayOfListsDictionaries[indexPath.row] as NSDictionary
+            
             
             
             var ownerOfTheList = listDictionary.objectForKey("listUser") as? PFUser
@@ -499,10 +601,33 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    
+    func changeBackground(imageName: String) {
+        self.backgroundView.image = UIImage(named: imageName);
+        
+    }
+    
+    func changeUserImage(image: UIImage) {
+        self.userImage.image = image
+        
+    }
     // if we click on the + tabBarItem, the nshow the AddListVC
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "userToAddListVC" {
             let viewController:AddListViewController = segue.destinationViewController as AddListViewController
+            
+        }
+        
+        if segue.identifier == "showBackgroundVC" {
+            let viewController:BackgroundViewController = segue.destinationViewController as BackgroundViewController
+            viewController.username = self.userName.text
+           
+            viewController.email = self.userEmail.text
+            
+            viewController.delegate = self
+            
+       
+            
             
         }
     }

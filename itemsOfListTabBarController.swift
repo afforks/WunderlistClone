@@ -11,7 +11,7 @@ import UIKit
 
 // VC with all the items inside a particular list of the user
 
-class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
+class itemsOfListTabBarController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     // the four tab bar items at the bottom
@@ -39,8 +39,12 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
     var arrayOfDatedDictionaries = NSMutableArray()
     
     
+    var arrayOfCheckedDictionaryItems = NSMutableArray()
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
+   @IBOutlet weak var checkedItemsTableView: UITableView!
     @IBOutlet weak var addItemLabel: UITextField!
     
     @IBOutlet weak var addItemButton: UIButton!
@@ -50,13 +54,44 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
     var currentDueDateDictionary = Dictionary<String, AnyObject>()
     
     
+    var putStarredItemAtTop = Bool()
     
+    
+    
+    @IBOutlet weak var backgroundView: UIImageView!
+    
+ 
+    @IBOutlet weak var showCheckedItemsButton: UIButton!
+    
+    var checkedItemsHidden: Bool = true
+    
+    var checkedItemString: String!
     override func viewDidLoad() {
         
+    
         
         super.viewDidLoad()
         
         
+  
+        self.checkedItemsTableView.hidden = true
+       
+        self.showCheckedItemsButton.titleLabel!.text = checkedItemString
+        
+        self.backgroundView.contentMode = UIViewContentMode.ScaleToFill
+
+        if globalBackgroundImage != nil {
+            self.backgroundView.image = globalBackgroundImage!
+        }
+        
+    
+         //  self.checkedItemsTableView.tag = 1000
+        
+      self.checkedItemsTableView.delegate = self
+      self.checkedItemsTableView.dataSource = self
+     
+  //   self.checkedItemsTableView.reloadData()
+
         // if it is the WeekList, we can't add item
         if self.listName == "Week" {
             self.addItemLabel.hidden = true
@@ -76,9 +111,19 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         self.loadData()
         
         
+        
+        
+        
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.tableFooterView = self.tableFooterView
         
+       
+        self.checkedItemsTableView.alpha = 0.5
+        self.checkedItemsTableView.tableFooterView = self.tableFooterView
+        self.checkedItemsTableView.separatorInset = UIEdgeInsetsZero
+        self.checkedItemsTableView.layoutMargins = UIEdgeInsetsZero
+        self.checkedItemsTableView.layer.cornerRadius = 3
+
         
         // create a custom back button, so that the data gets updated when we return to the prevous vc
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -173,16 +218,6 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                 itemDict["name"] = itemName
                                 
                                 
-                                
-                                
-                                let itemChecked = item["checked"]
-                                
-                                if itemChecked != nil {
-                                    
-                                    itemDict["checked"] = itemChecked as? String
-                                    
-                                }
-                                
                                 let itemStarred = item["starred"]
                                 
                                 if itemStarred != nil {
@@ -223,6 +258,25 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                 }
                                 
                                 
+                                let itemChecked = item["checked"]
+                                
+                                if itemChecked != nil {
+                                    
+                                    itemDict["checked"] = itemChecked as? String
+                                 
+                                   
+                                    let itemCheckedString = itemChecked as String?
+                                    if (itemCheckedString == "true") {
+                                        self.arrayOfCheckedDictionaryItems.addObject(itemDict)
+                                        
+                                    }
+
+
+                                    
+                                }
+                                
+                               
+                                
                                 
                                 
                                 
@@ -236,7 +290,26 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                     
                                 }
                                 
-                                
+                                if itemStarred != nil {
+                                    
+                                    
+                                    
+                                    
+                                    var itemStarredString = itemStarred as? String
+                                    if itemStarredString != nil {
+                                        itemDict["starred"] = itemStarredString
+                                        if itemStarredString == "true" {
+                                          self.itemsDict.insert(itemDict, atIndex: 0)
+                                            continue;
+                                        }
+                                        
+                                        else {
+                                            
+                                        }
+                                    }
+                                    
+                                }
+
                                 
                                 
                                 self.itemsDict.append(itemDict)
@@ -261,6 +334,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                 }
                 
                 self.tableView.reloadData()
+                self.checkedItemsTableView.reloadData()
             }
             
             
@@ -841,7 +915,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
     
     
     func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String? {
-        if self.listName == "Starred" || self.listName == "Today" {
+        if (self.listName == "Starred" || self.listName == "Today") && (tableView != checkedItemsTableView){
             var dictionary: AnyObject = self.arrayOfOriginalListsDict[section]
             
             
@@ -850,7 +924,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
             return itemsOriginalList
         }
         
-        if self.listName == "Week" {
+        if self.listName == "Week" && (tableView != checkedItemsTableView) {
             var dictionary: AnyObject = self.arrayOfDatedDictionaries[section]
             
             
@@ -880,7 +954,8 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView? {
         
-        if self.listName == "Starred" || self.listName == "Today" || self.listName == "Week" {
+      
+        if (self.listName == "Starred" || self.listName == "Today" || self.listName == "Week") && (tableView != checkedItemsTableView){
             var headerFrame:CGRect = tableView.frame
             
             var title = UILabel(frame: CGRectMake(10, 10,  500, 30))
@@ -915,49 +990,91 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
             
             return headerView
         }
+            
         else {
             var headerView = UIView()
             headerView.backgroundColor = UIColor.clearColor()
             return headerView
             
         }
+        
+        
     }
     
     
-    func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         
-        
-        
-        if self.listName == "Starred" || self.listName == "Today"{
-            
-            return self.arrayOfOriginalListsDict.count
+        if tableView == self.checkedItemsTableView {
+          
+            return 1
             
         }
         
-        if self.listName == "Week" {
+        
+        else {
             
-            return self.arrayOfDatedDictionaries.count
+            if self.listName == "Starred" || self.listName == "Today"{
+                
+                return self.arrayOfOriginalListsDict.count
+                
+            }
+            
+            if self.listName == "Week" {
+                
+                return self.arrayOfDatedDictionaries.count
+            }
+            
+            
+            
+            return self.itemsDict.count
+            
+        
+
         }
-        
-        
-        return self.itemsDict.count
-        
+      
     }
     
-    func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        
+        if tableView == checkedItemsTableView {
+            
+            self.checkedItemString = "\(self.arrayOfCheckedDictionaryItems.count) COMPLETED ITEMS"
+            
+          
+            self.showCheckedItemsButton.titleLabel!.text = checkedItemString
+            self.showCheckedItemsButton.setTitle(checkedItemString!, forState: UIControlState.Normal)
+            self.showCheckedItemsButton.setTitle(checkedItemString!, forState: UIControlState.Selected)
+        
+            
+          return self.arrayOfCheckedDictionaryItems.count
+            
+      
+            
+        }
+        
+        
+            
+        else {
+
         
         if self.listName == "Starred" || self.listName == "Today" {
             var dictionary: AnyObject = self.arrayOfOriginalListsDict[section]
             var itemsArray = dictionary["items"] as NSMutableArray
             return itemsArray.count
-        }
+            }
+            
+            if self.listName == "Week" {
+                var dictionary: AnyObject = self.arrayOfDatedDictionaries[section]
+                var itemsArray = dictionary["items"] as NSMutableArray
+                return itemsArray.count
+            }
         
-        if self.listName == "Week" {
-            var dictionary: AnyObject = self.arrayOfDatedDictionaries[section]
-            var itemsArray = dictionary["items"] as NSMutableArray
-            return itemsArray.count
         }
+
+
+        
         return 1
         
     }
@@ -968,10 +1085,152 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
     }
     
     
-    func tableView(tableView: UITableView?, cellForRowAtIndexPath indexPath: NSIndexPath?) -> UITableViewCell? {
+    /*
+
+if tableView == checkedItemsTableView {
+
+
+/*
+var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? ItemTableViewCell
+
+if !(cell != nil) {
+let cell  = UITableViewCell(style:UITableViewCellStyle.Subtitle, reuseIdentifier:"Cell") as ItemTableViewCell
+
+}
+
+*/
+
+
+var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? ItemTableViewCell
+
+if !(cell != nil) {
+let cell  = UITableViewCell(style:UITableViewCellStyle.Subtitle, reuseIdentifier:"Cell") as ItemTableViewCell
+
+}
+
+//  println(self.arrayOfCheckedDictionaryItems[indexPath.row])
+//  var item: AnyObject = self.arrayOfCheckedDictionaryItems[indexPath.row]
+
+println(self.arrayOfCheckedDictionaryItems)
+
+// var itemName =  item["listName"]! as String
+
+// cell!.textLabel!.text  = itemName
+cell!.cellLabel!.text = "bob"
+return cell!
+
+
+}
+
+*/
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
         
         
-        var cell = tableView!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath!) as? ItemTableViewCell
+        if tableView == checkedItemsTableView {
+            
+            
+            /*
+            var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? ItemTableViewCell
+            
+            if !(cell != nil) {
+            let cell  = UITableViewCell(style:UITableViewCellStyle.Subtitle, reuseIdentifier:"Cell") as ItemTableViewCell
+            
+            }
+            
+            */
+            
+            
+            var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? ItemTableViewCell
+            
+             cell!.separatorInset = UIEdgeInsetsZero
+            cell!.layoutMargins = UIEdgeInsetsZero
+            
+            if !(cell != nil) {
+                let cell  = UITableViewCell(style:UITableViewCellStyle.Subtitle, reuseIdentifier:"Cell") as ItemTableViewCell
+                
+            }
+            
+            
+        
+            if self.listName == "Starred" {
+                cell?.starButton.enabled = false
+            }
+             var item: AnyObject = self.arrayOfCheckedDictionaryItems[indexPath.row]
+        
+            
+          
+            if (self.arrayOfCheckedDictionaryItems.count > indexPath.row) {
+               
+                
+                println("ARRAY OF CHECKEDITEMS \(self.arrayOfCheckedDictionaryItems)")
+                
+                var itemName =  item["name"]! as String
+                
+                // cell!.textLabel!.text  = itemName
+                cell!.cellLabel!.text = itemName
+            }
+          
+            else {
+                cell!.cellLabel!.text = ""
+            }
+            
+            
+            cell!.checkboxButton.enabled = false
+            cell!.starButton.enabled = false
+            
+            
+            cell!.checkboxButton.setBackgroundImage(UIImage(named: "checked_checkbox@2x"), forState: .Normal)
+            
+        
+    
+            var itemStarred: AnyObject? = item["starred"]
+            if itemStarred != nil  {
+                
+                var itemStarredString = itemStarred as String
+                
+                if itemStarredString == "true"{
+                    cell!.starButton.selected = true
+                    
+                    
+                    cell!.starButton.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.63)
+                    cell!.starButton.alpha = 0.63
+                    
+                }
+                    
+                else {
+                    cell!.starButton.selected = false
+                    cell!.starButton.backgroundColor = UIColor.clearColor()
+                }
+                
+                
+                
+            }
+                
+            else {
+                cell!.starButton.selected = false
+            }
+            
+            cell!.starImageView.image = UIImage(named: "Starred")
+            
+            cell!.starImageView.clipsToBounds = true
+            
+            cell!.starImageView.contentMode = .ScaleAspectFit
+            
+           
+
+            return cell!
+            
+            
+        }
+        
+        
+        else {
+            
+        }
+
+        var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? ItemTableViewCell
         
         
         if !(cell != nil) {
@@ -1002,12 +1261,12 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         
         if self.listName == "Starred" || self.listName == "Today" {
             
-            var itemDict: AnyObject = self.arrayOfOriginalListsDict[indexPath!.section]
+            var itemDict: AnyObject = self.arrayOfOriginalListsDict[indexPath.section]
             
             // array of DICT
             var itemsArray = itemDict["items"] as NSMutableArray
             
-            listItem = itemsArray[indexPath!.row]
+            listItem = itemsArray[indexPath.row]
             
             
             var itemName = listItem["name"]! as String
@@ -1020,12 +1279,12 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         }
             
         else if self.listName == "Week" {
-            var itemDict: AnyObject = self.arrayOfDatedDictionaries[indexPath!.section]
+            var itemDict: AnyObject = self.arrayOfDatedDictionaries[indexPath.section]
             
             // array of DICT
             var itemsArray = itemDict["items"] as NSMutableArray
             
-            listItem = itemsArray[indexPath!.row]
+            listItem = itemsArray[indexPath.row]
             
             
             var itemName = listItem["name"]! as String
@@ -1037,7 +1296,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         else {
             
             
-            listItem = itemsDict[indexPath!.section]
+            listItem = itemsDict[indexPath.section]
             var listItemString = listItem["name"]! as String
             cell!.cellLabel!.text = listItemString
         }
@@ -1061,6 +1320,8 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
             
             var itemCheckedString = itemChecked as String!
             
+            println("INDEX: \(indexPath.section)")
+            println("IS ITEM CHECKED: \(itemCheckedString)")
             if itemCheckedString == "true" {
                 cell!.checkboxButton.selected = true
                 
@@ -1116,19 +1377,27 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         cell!.starImageView.clipsToBounds = true
         
         cell!.starImageView.contentMode = .ScaleAspectFit
-        
+    
+        if self.listName == "Starred" {
+            cell!.starButton.selected = true
+            
+            
+            cell!.starButton.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.63)
+            cell!.starButton.alpha = 0.63
+
+        }
         
         if self.listName == "Today" || self.listName  == "Week" || self.listName == "Starred" {
             
-            cell!.checkboxButton.tag = indexPath!.section*1000 + indexPath!.row
+            cell!.checkboxButton.tag = indexPath.section*1000 + indexPath.row
             
-            cell!.starButton.tag = indexPath!.section*1000 + indexPath!.row
+            cell!.starButton.tag = indexPath.section*1000 + indexPath.row
         }
             
         else {
-            cell!.checkboxButton.tag = indexPath!.section
+            cell!.checkboxButton.tag = indexPath.section
             
-            cell!.starButton.tag = indexPath!.section
+            cell!.starButton.tag = indexPath.section
             
         }
         
@@ -1137,7 +1406,8 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         
         
         
-        return cell
+        return cell!
+        
         
         
         
@@ -1164,9 +1434,21 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         }
         
         
+        
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
         let vc = storyboard.instantiateViewControllerWithIdentifier("itemVC") as itemContentViewController;
+        
+        if (tableView == self.checkedItemsTableView) {
+            
+            vc.isChecked = true
+            println(" IS VC CHECKED: \(vc.isChecked)")
+
+        }
         vc.itemName = itemString
+        
+        
+        
         
         
         if self.listName == "Starred" || self.listName == "Today" {
@@ -1244,12 +1526,17 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
             
             NSThread.sleepForTimeInterval(0.1)
 
-            self.navigationController?.pushViewController(vc, animated: true)
+            
+            
+           
+               self.navigationController?.pushViewController(vc, animated: true)
+            
+            
         }
         
         
         
-        
+ 
     }
     
  
@@ -1258,12 +1545,21 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if self.listName == "Starred" || self.listName == "Today" || self.listName == "Week" {
-            return 50
+        if tableView == self.checkedItemsTableView {
+            return 0
         }
+        
         else {
-            return 20
+            if self.listName == "Starred" || self.listName == "Today" || self.listName == "Week" {
+                return 50
+            }
+            else {
+                return 20
+            }
+            
         }
+        
+       
     }
     
     
@@ -1292,8 +1588,33 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         self.sortTabBarItem.title = "Sort"
     }
     
+    
+    
+/* (TO PUT AFTER IF BUTTON.SELECTED = FALSE
+
+let itemChecked: AnyObject? = item!["checked"]
+
+
+if itemChecked != nil {
+
+
+var itemDict = Dictionary<String, AnyObject>()
+
+
+var itemCheckedString = itemChecked as? String
+
+if itemCheckedString != nil {
+item!["checked"] = "true"
+NSLog("YES")
+}
+}
+
+*/
+
+
+
+
     @IBAction func checkboxClicked(sender: AnyObject) {
-        
         
         
         var button = sender as UIButton
@@ -1302,13 +1623,14 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         var item: Dictionary<String, AnyObject>? = nil
         
         
+        var section = button.tag/1000
+        var row = button.tag%1000
+        
+        var itemDict: AnyObject? = nil
+        var itemsArray: AnyObject? = nil
         if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
             
-            var section = button.tag/1000
-            var row = button.tag%1000
             
-            var itemDict: AnyObject? = nil
-            var itemsArray: AnyObject? = nil
             if self.listName == "Week" {
                 var itemDict: AnyObject = self.arrayOfDatedDictionaries[section]
                 itemsArray = itemDict["items"] as NSMutableArray
@@ -1347,18 +1669,330 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         
         if button.selected == false {
             button.selected = true
+     
+            var itemCopy = item
+            itemCopy!["checked"] = "true"
+            
+             if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+                itemsArray?.removeObjectAtIndex(row)
+                itemsArray!.insertObject(itemCopy!, atIndex: row)
+            }
+            
+             else {
+                
+                self.itemsDict.removeAtIndex(button.tag)
+                self.itemsDict.insert(itemCopy!, atIndex: button.tag)
+            }
+            
+            self.arrayOfCheckedDictionaryItems.addObject(itemCopy!)
+         
+            
             
             self.addOrRemoveNewItemDictKeyValueToParse("checked", itemDict: item!, starred: "false", remove: false, user: user)
         }
             
         else {
             button.selected = false
+            var itemCopy = item
+            itemCopy!["checked"] = "false"
+            
+            
+            self.arrayOfCheckedDictionaryItems.removeObject(item!)
+            
+            if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+                itemsArray?.removeObjectAtIndex(row)
+                itemsArray!.insertObject(itemCopy!, atIndex: row)
+            }
+            
+            else {
+                
+                self.itemsDict.removeAtIndex(button.tag)
+                self.itemsDict.insert(itemCopy!, atIndex: button.tag)
+            }
+            self.arrayOfCheckedDictionaryItems.removeObject(item!)
+        
             self.addOrRemoveNewItemDictKeyValueToParse("checked", itemDict: item!, starred: "false", remove: true, user: user)
         }
+        
+            self.checkedItemsTableView.reloadData()
+        self.tableView.reloadData()
     }
     
     
+    // Previous
+    
+    /*
+    if button.selected == false {
+    button.selected = true
+    
+    
+    
+    item!["checked"] = "true"
+    
+    
+    
+    
+    if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+    
+    var section = button.tag/1000
+    var row = button.tag%1000
+    
+    var itemsArray: AnyObject? = nil
+    if self.listName == "Week" {
+    var itemDict: AnyObject = self.arrayOfDatedDictionaries[section]
+    itemsArray = itemDict["items"] as NSArray
+    
+    itemsArray!.removeObjectAtIndex(row)
+    itemsArray!.insertObject(item!, atIndex: row)
+    }
+    
+    else {
+    var itemDict: AnyObject = self.arrayOfOriginalListsDict[section]
+    itemsArray = itemDict["items"] as NSArray
+    itemsArray?.removeObjectAtIndex(row)
+    itemsArray!.insertObject(item!, atIndex: row)
+    }
+    
+    }
+    
+    else {
+    self.itemsDict.removeAtIndex(button.tag)
+    self.itemsDict.insert(item!, atIndex: button.tag)
+    
+    
+    }
+    
+    
+    self.arrayOfCheckedDictionaryItems.addObject(item!)
+    self.checkedItemsTableView.reloadData()
+    self.tableView.reloadData()
+    
+    self.addOrRemoveNewItemDictKeyValueToParse("checked", itemDict: item!, starred: "false", remove: false, user: user)
+    }
+    
+    else {
+    button.selected = false
+    
+    
+    // REMOVEOBJECT BEFORE CHANGING A KEY-VALUE OTHERWISE WON'T REMOVE OBJECT (DON'T RECOGNIZE IT AS THE SAME)
+    
+    var itemCopy = item
+    
+    
+    self.arrayOfCheckedDictionaryItems.removeObject(item!)
+    
+    itemCopy!["checked"] = "false"
+    
+    if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+    
+    var section = button.tag/1000
+    var row = button.tag%1000
+    
+    var itemsArray: AnyObject? = nil
+    if self.listName == "Week" {
+    var itemDict: AnyObject = self.arrayOfDatedDictionaries[section]
+    itemsArray = itemDict["items"] as NSArray
+    }
+    
+    else {
+    var itemDict: AnyObject = self.arrayOfOriginalList
+    
+    itemsArray!.removeObjectAtIndex(row)
+    itemsArray!.insertObject(item!, atIndex: row)sDict[section]
+    itemsArray = itemDict["items"] as NSArray
+    itemsArray?.removeObjectAtIndex(row)
+    itemsArray!.insertObject(itemCopy!, atIndex: row)
+    }
+    
+    }
+    
+    else {
+    
+    self.itemsDict.removeAtIndex(button.tag)
+    self.itemsDict.insert(itemCopy!, atIndex: button.tag)
+    
+    }
+    
+    self.checkedItemsTableView.reloadData()
+    
+    
+    self.addOrRemoveNewItemDictKeyValueToParse("checked", itemDict: item!, starred: "false", remove: true, user: user)
+    }
+
+    */
+    
+    
+    // NEW
+    
+    /*
     @IBAction func starbuttonClicked(sender: AnyObject) {
+        
+        
+        
+        var button = sender as UIButton
+        
+        var item: Dictionary<String, AnyObject>;
+        
+        var section = button.tag/1000
+        var row = button.tag%1000
+        
+        // if listName = today,starred or week
+        
+        var itemDict: AnyObject? = nil
+        
+        var itemsArray: AnyObject? = nil
+        
+        if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+            
+            
+            
+            if self.listName == "Week" {
+                var itemDict: AnyObject = self.arrayOfDatedDictionaries[section]
+                itemsArray = itemDict["items"] as NSMutableArray
+                
+                
+                item = itemsArray![row] as Dictionary<String, AnyObject>!
+            }
+                
+            else {
+                var itemDict: AnyObject = self.arrayOfOriginalListsDict[section]
+                itemsArray = itemDict["items"] as NSMutableArray
+                
+                
+                item = itemsArray![row] as Dictionary<String, AnyObject>!
+            }
+            
+            // array of DICT
+            
+            
+            
+        }
+            
+            // else if it is not a standard list
+        else {
+            
+            // take the item
+            item = self.itemsDict[button.tag] as Dictionary<String, AnyObject>!
+            
+            
+            
+            
+        }
+        
+        
+        
+        var itemStringObject: AnyObject? = item["name"]
+        var itemString = itemStringObject as String
+        
+        var user = item["originalUser"] as PFUser!
+        
+        // if we are selecting the star
+        if button.selected == false {
+            
+            
+            
+            
+            
+            
+            button.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.63)
+            button.alpha = 0.63
+            
+            button.selected = true
+            
+            self.starred = true
+            
+            
+            item["starred"] = "true"
+            
+            
+            if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+                itemsArray?.removeObjectAtIndex(row)
+                itemsArray!.insertObject(item, atIndex: 0)
+            }
+                
+            else {
+                
+                self.itemsDict.removeAtIndex(button.tag)
+                self.itemsDict.insert(item, atIndex: 0)
+            }
+            
+            
+            
+            
+            self.tableView.reloadData()
+            // add to originalList and update rest
+            
+            self.addOrRemoveNewItemDictKeyValueToParse("starred", itemDict: item, starred: "true", remove: false, user: user)
+            
+            
+            
+            
+            
+        }
+            
+            // if we are unselecting the star
+            
+            
+        else {
+            
+            button.backgroundColor = UIColor.clearColor()
+            
+            button.selected = false
+            
+            self.starred = false
+            
+            if self.listName == "Starred" {
+                
+                var listDict: AnyObject = self.arrayOfOriginalListsDict[section]
+                
+                // array of DICT
+                var itemsArray = listDict["items"] as NSMutableArray
+                
+                var itemDict = itemsArray[row] as? Dictionary<String, AnyObject>
+                
+                
+                
+                itemsArray.removeObjectAtIndex(row)
+                
+                
+                item["starred"] = "false"
+                
+                
+                if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+                    itemsArray.removeObjectAtIndex(row)
+                    itemsArray.insertObject(item, atIndex: 0)
+                }
+                    
+                else {
+                    
+                    self.itemsDict.removeAtIndex(button.tag)
+                    self.itemsDict.insert(item, atIndex: 0)
+                }
+                
+                
+                
+                self.tableView.reloadData()
+                
+                
+            }
+            
+            self.addOrRemoveNewItemDictKeyValueToParse("starred", itemDict: item, starred: "true", remove: true, user: user)
+            
+            
+            
+        }
+        
+        
+    }
+
+
+
+
+
+*/
+    @IBAction func starbuttonClicked(sender: AnyObject) {
+        
+        
         
         
         var button = sender as UIButton
@@ -1368,15 +2002,17 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         var section = button.tag/1000
         var row = button.tag%1000
         
+        var itemDict: AnyObject? = nil
+        
+        var itemsArray: NSMutableArray? = nil
+        
         if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
             
             
-            var itemDict: AnyObject? = nil
             
-            var itemsArray: AnyObject? = nil
             if self.listName == "Week" {
                 var itemDict: AnyObject = self.arrayOfDatedDictionaries[section]
-                itemsArray = itemDict["items"] as NSMutableArray
+                itemsArray = itemDict["items"] as? NSMutableArray
                 
                 
                 item = itemsArray![row] as? Dictionary<String, AnyObject>
@@ -1384,7 +2020,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                 
             else {
                 var itemDict: AnyObject = self.arrayOfOriginalListsDict[section]
-                itemsArray = itemDict["items"] as NSMutableArray
+                itemsArray = itemDict["items"] as? NSMutableArray
                 
                 
                 item = itemsArray![row] as? Dictionary<String, AnyObject>
@@ -1421,10 +2057,23 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
             
             // add to originalList and update rest
             
+            var itemCopy = item
+            itemCopy!["starred"] = "true"
+            
+            if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+                itemsArray!.removeObjectAtIndex(row)
+                itemsArray!.insertObject(itemCopy!, atIndex: 0)
+            }
+            
+            
+            else {
+            self.itemsDict.removeAtIndex(button.tag)
+            self.itemsDict.insert(itemCopy!, atIndex: 0)
+            }
+            self.tableView.reloadData()
             self.addOrRemoveNewItemDictKeyValueToParse("starred", itemDict: item!, starred: "true", remove: false, user: user)
             
-            
-            
+           
             
             
         }
@@ -1436,6 +2085,11 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
             button.selected = false
             
             self.starred = false
+            var itemCopy = item
+            
+            
+            itemCopy!["starred"] = "false"
+            
             
             if self.listName == "Starred" {
                 
@@ -1449,12 +2103,25 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                 
                 
                 itemsArray.removeObjectAtIndex(row)
+                 self.itemsDict.removeAtIndex(row)
                 
-                
-                self.tableView.reloadData()
+            
                 
                 
             }
+            
+           
+            else if self.listName == "Today" || self.listName == "Week"{
+                itemsArray!.removeObjectAtIndex(row)
+                itemsArray!.insertObject(itemCopy!, atIndex: row)
+            }
+            
+            else {
+            self.itemsDict.removeAtIndex(button.tag)
+            self.itemsDict.insert(itemCopy!, atIndex: button.tag)
+            }
+            
+            self.tableView.reloadData()
             
             self.addOrRemoveNewItemDictKeyValueToParse("starred", itemDict: item!, starred: "true", remove: true, user: user)
             
@@ -1463,9 +2130,15 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         }
         
         
-    }
-    
-    
+        
+        
+
+            
+        }
+   
+
+
+
     func addOrRemoveNewItemDictKeyValueToParse(key: String, itemDict: Dictionary<String, AnyObject>,  starred: String, remove: Bool, user: PFUser) {
         
         
@@ -1498,6 +2171,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                     if arrayItems != nil {
                         for item in arrayItems! {
                             
+                            // POINTER TO THE ITEM OBJET IN ARRAY (SO IF WE DELETE THE ITEM IN ARRAY ALSO DELETES THIS VARIABLE)
                             var item = item as Dictionary<String, AnyObject>
                             
                             
@@ -1512,10 +2186,13 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                     // remove old object
                                     
                                     
-                                    arrayItems!.removeObject(item)
-                                    item[key] = "false"
+                                    var itemCopy = item
                                     
-                                    arrayItems!.addObject(item)
+                                
+                                    arrayItems!.removeObject(item)
+                                    itemCopy[key] = "false"
+                                    
+                                    arrayItems!.addObject(itemCopy)
                                     list.saveInBackground()
                                     
                                     
@@ -1582,10 +2259,16 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                 else {
                                     // remove old objec
                                     
+                                    var itemCopy = item
                                     arrayItems!.removeObject(item)
-                                    item[key] = "true"
                                     
-                                    arrayItems!.addObject(item)
+                                    println("Item: \(item)")
+                                    println("Key: \(key)")
+                                    println("item[key]: \(item[key])")
+                                    
+                                    itemCopy[key] = "true"
+                                    
+                                    arrayItems!.addObject(itemCopy)
                                     list.saveInBackground()
                                     if (starred == "true") {
                                         
@@ -1744,11 +2427,14 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                 if itemsArray != nil {
                                     
                                     for item in itemsArray! {
-                                        var itemString = item["name"] as String
+                                        var itemString = item["name"] as? String
+                                        if itemString != nil {
                                         if itemString == itemName {
                                             itemsArray!.removeObject(item)
                                         }
+                                        }
                                     }
+                                        
                                     
                                 }
                                 
@@ -1869,12 +2555,20 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                 if itemString == itemNameString {
                                     // remove old object
                                     
-                                    
+                                    var itemCopy = item
                                     itemsArray!.removeObject(item)
-                                    item[key] = "true"
                                     
                                     
-                                    itemsArray!.addObject(item)
+                                    
+                                    var keyString: String? = key as String
+                                    if keyString != nil {
+                                     itemCopy[keyString!] = "true"
+                                    
+                                    }
+                                   
+                                    
+                                    
+                                    itemsArray!.addObject(itemCopy)
                                     
                                     list["items"] = itemsArray
                                     list.saveInBackground()
@@ -1901,9 +2595,12 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
                                 var itemString = itemStringObject as String
                                 if itemString == itemNameString {
                                     // remove old object
+                                    
+                                    // CREATE A COPY BEFORE COPYING OBJECT
+                                    var itemCopy = item
                                     itemsArray!.removeObject(item)
-                                    item[key] = "false"
-                                    itemsArray!.addObject(item)
+                                    itemCopy[key] = "false"
+                                    itemsArray!.addObject(itemCopy)
                                     list["items"] = itemsArray
                                     list.saveInBackground()
                                 }
@@ -2139,6 +2836,39 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate {
         }
     }
     
+    @IBAction func showCheckedItems(sender: AnyObject) {
+        
+        if self.checkedItemsHidden == true {
+     
+            self.checkedItemsTableView.hidden = false
+            self.checkedItemsHidden = false
+            
+            self.checkedItemString = "\(self.arrayOfCheckedDictionaryItems.count) COMPLETED ITEMS"
+            self.showCheckedItemsButton.titleLabel!.text! = self.checkedItemString!
+            
+            self.showCheckedItemsButton.setTitle(checkedItemString!, forState: UIControlState.Normal)
+            self.showCheckedItemsButton.setTitle(checkedItemString!, forState: UIControlState.Selected)
+            
+              println(checkedItemString!)
+            
+        }
+        
+        else {
+  
+            self.checkedItemsTableView.hidden = true
+            self.checkedItemsHidden = true
+         
+           self.checkedItemString = "\(self.arrayOfCheckedDictionaryItems.count) COMPLETED ITEMS"
+            self.showCheckedItemsButton.titleLabel!.text! = self.checkedItemString!
+            
+            self.showCheckedItemsButton.setTitle(checkedItemString!, forState: UIControlState.Normal)
+            self.showCheckedItemsButton.setTitle(checkedItemString!, forState: UIControlState.Selected)
+              println(checkedItemString!)
+            
+        }
+   
+    }
+  
     func removeItemFromList(listName: String, itemDict: Dictionary<String, AnyObject>, user: PFUser) {
         
         

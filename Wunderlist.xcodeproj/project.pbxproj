@@ -14,6 +14,11 @@
 		BD409D3A19F848C5006CE43C /* Inbox.png in Resources */ = {isa = PBXBuildFile; fileRef = BD409D3919F848C5006CE43C /* Inbox.png */; };
 		BD409D3C19F8493F006CE43C /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = BD409D3B19F8493F006CE43C /* calendar.png */; };
 		BD6CB4EB1A366A6000F8EB54 /* shared.png in Resources */ = {isa = PBXBuildFile; fileRef = BD6CB4EA1A366A6000F8EB54 /* shared.png */; };
+		BD824B5F1A6FFE5400FB0258 /* BackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD824B5E1A6FFE5400FB0258 /* BackgroundViewController.swift */; };
+		BD9B909A1A718FE70076EF36 /* Murakami - Gero Tan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD9B90971A718FE70076EF36 /* Murakami - Gero Tan.jpg */; };
+		BD9B909B1A718FE70076EF36 /* Van Gogh-Starry.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD9B90981A718FE70076EF36 /* Van Gogh-Starry.jpg */; };
+		BD9B909C1A718FE70076EF36 /* Van Gogh-Terrasse.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD9B90991A718FE70076EF36 /* Van Gogh-Terrasse.jpg */; };
+		BD9B91041A72E4E80076EF36 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9B91031A72E4E80076EF36 /* FilterCollectionViewCell.swift */; };
 		BDA5996019E45FCE00442B6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDA5995F19E45FCE00442B6A /* Images.xcassets */; };
 		BDA5996319E45FCE00442B6A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDA5996119E45FCE00442B6A /* LaunchScreen.xib */; };
 		BDA5996F19E45FCE00442B6A /* WunderlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5996E19E45FCE00442B6A /* WunderlistTests.swift */; };
@@ -52,6 +57,10 @@
 		BDE01AAF1A02D337006ACEAB /* addNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE01AAE1A02D337006ACEAB /* addNoteViewController.swift */; };
 		BDF66FFF1A33CCA500E1E072 /* addContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF66FFE1A33CCA500E1E072 /* addContactTableViewCell.swift */; };
 		BDF670031A3548E100E1E072 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDF670021A3548E100E1E072 /* Main.storyboard */; };
+		BDF9CC851A76A2AA00DA5F1B /* clock.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDF9CC841A76A2AA00DA5F1B /* clock.jpg */; };
+		BDF9CC871A76A49600DA5F1B /* reminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9CC861A76A49600DA5F1B /* reminderTableViewCell.swift */; };
+		BDF9CC891A76A91D00DA5F1B /* Repeat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDF9CC881A76A91D00DA5F1B /* Repeat.jpg */; };
+		BDF9CC8B1A76CA0400DA5F1B /* dueDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9CC8A1A76CA0400DA5F1B /* dueDateTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +81,11 @@
 		BD409D3919F848C5006CE43C /* Inbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Inbox.png; sourceTree = "<group>"; };
 		BD409D3B19F8493F006CE43C /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		BD6CB4EA1A366A6000F8EB54 /* shared.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shared.png; sourceTree = "<group>"; };
+		BD824B5E1A6FFE5400FB0258 /* BackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundViewController.swift; sourceTree = "<group>"; };
+		BD9B90971A718FE70076EF36 /* Murakami - Gero Tan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Murakami - Gero Tan.jpg"; path = "../../WunderlistPhotos/Murakami - Gero Tan.jpg"; sourceTree = "<group>"; };
+		BD9B90981A718FE70076EF36 /* Van Gogh-Starry.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Van Gogh-Starry.jpg"; path = "../../WunderlistPhotos/Van Gogh-Starry.jpg"; sourceTree = "<group>"; };
+		BD9B90991A718FE70076EF36 /* Van Gogh-Terrasse.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Van Gogh-Terrasse.jpg"; path = "../../WunderlistPhotos/Van Gogh-Terrasse.jpg"; sourceTree = "<group>"; };
+		BD9B91031A72E4E80076EF36 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterCollectionViewCell.swift; path = ../FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		BDA5995319E45FCE00442B6A /* Wunderlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wunderlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA5995719E45FCE00442B6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDA5995F19E45FCE00442B6A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -115,6 +129,10 @@
 		BDE01AAE1A02D337006ACEAB /* addNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addNoteViewController.swift; sourceTree = "<group>"; };
 		BDF66FFE1A33CCA500E1E072 /* addContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addContactTableViewCell.swift; sourceTree = "<group>"; };
 		BDF670021A3548E100E1E072 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		BDF9CC841A76A2AA00DA5F1B /* clock.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = clock.jpg; sourceTree = "<group>"; };
+		BDF9CC861A76A49600DA5F1B /* reminderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reminderTableViewCell.swift; sourceTree = "<group>"; };
+		BDF9CC881A76A91D00DA5F1B /* Repeat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Repeat.jpg; sourceTree = "<group>"; };
+		BDF9CC8A1A76CA0400DA5F1B /* dueDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dueDateTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +199,12 @@
 				BDDA301C19E5E70B000CFDEC /* itemsOfListTabBarController.swift */,
 				BDC09FB71A13F3A700D574BC /* ItemTableViewCell.swift */,
 				BDE01AAC1A02C5E8006ACEAB /* itemContentViewController.swift */,
+				BDF9CC8A1A76CA0400DA5F1B /* dueDateTableViewCell.swift */,
+				BDF9CC861A76A49600DA5F1B /* reminderTableViewCell.swift */,
+				BD9B91031A72E4E80076EF36 /* FilterCollectionViewCell.swift */,
 				BDA997DF1A016A9D0077273E /* subtaskTableViewCell.swift */,
 				BDE01AAE1A02D337006ACEAB /* addNoteViewController.swift */,
+				BD824B5E1A6FFE5400FB0258 /* BackgroundViewController.swift */,
 				BDF670021A3548E100E1E072 /* Main.storyboard */,
 				BD05549A19F194A700F3464B /* Wunderlist.xcdatamodeld */,
 				BDA5995F19E45FCE00442B6A /* Images.xcassets */,
@@ -222,6 +244,11 @@
 		BDA5998A19E4630700442B6A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BDF9CC881A76A91D00DA5F1B /* Repeat.jpg */,
+				BD9B90971A718FE70076EF36 /* Murakami - Gero Tan.jpg */,
+				BD9B90981A718FE70076EF36 /* Van Gogh-Starry.jpg */,
+				BDF9CC841A76A2AA00DA5F1B /* clock.jpg */,
+				BD9B90991A718FE70076EF36 /* Van Gogh-Terrasse.jpg */,
 				BDDA611B1A3FD12200EDD005 /* wunderlistLogo@2x.png */,
 				BD6CB4EA1A366A6000F8EB54 /* shared.png */,
 				BDC09FC31A16D9BD00D574BC /* browsers@2x.png */,
@@ -340,6 +367,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9B909A1A718FE70076EF36 /* Murakami - Gero Tan.jpg in Resources */,
 				BD6CB4EB1A366A6000F8EB54 /* shared.png in Resources */,
 				BD1E92CF19EA0F6300C91C53 /* CentrakPark1.JPG in Resources */,
 				BDC09FBA1A1691BC00D574BC /* unchecked_checkbox@2x.png in Resources */,
@@ -349,15 +377,19 @@
 				BDC09FC01A16D93700D574BC /* bookmarks@2x.png in Resources */,
 				BD409D3A19F848C5006CE43C /* Inbox.png in Resources */,
 				BDC09FBC1A1691C800D574BC /* checked_checkbox@2x.png in Resources */,
+				BDF9CC891A76A91D00DA5F1B /* Repeat.jpg in Resources */,
 				BDC09FC21A16D9A200D574BC /* world_times@2x.png in Resources */,
 				BD409D3C19F8493F006CE43C /* calendar.png in Resources */,
 				BDC5292C19F837D300940D46 /* calendar@3x.png in Resources */,
 				BDF670031A3548E100E1E072 /* Main.storyboard in Resources */,
+				BD9B909B1A718FE70076EF36 /* Van Gogh-Starry.jpg in Resources */,
 				BDA5998919E462EE00442B6A /* defaultimage.jpg in Resources */,
 				BDA5996319E45FCE00442B6A /* LaunchScreen.xib in Resources */,
 				BDDA611C1A3FD12200EDD005 /* wunderlistLogo@2x.png in Resources */,
+				BDF9CC851A76A2AA00DA5F1B /* clock.jpg in Resources */,
 				BDA5996019E45FCE00442B6A /* Images.xcassets in Resources */,
 				BDC09FBE1A16D8A200D574BC /* contacts@2x.png in Resources */,
+				BD9B909C1A718FE70076EF36 /* Van Gogh-Terrasse.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,9 +417,13 @@
 				BD409D3419F8395F006CE43C /* ListTableViewCell.swift in Sources */,
 				BDA997E01A016A9D0077273E /* subtaskTableViewCell.swift in Sources */,
 				BDDA301D19E5E70B000CFDEC /* AppDelegate.swift in Sources */,
+				BD9B91041A72E4E80076EF36 /* FilterCollectionViewCell.swift in Sources */,
 				BDDA301E19E5E70B000CFDEC /* itemsOfListTabBarController.swift in Sources */,
+				BDF9CC8B1A76CA0400DA5F1B /* dueDateTableViewCell.swift in Sources */,
 				BDA5998719E461B500442B6A /* ListViewController.swift in Sources */,
+				BD824B5F1A6FFE5400FB0258 /* BackgroundViewController.swift in Sources */,
 				BDE01AAD1A02C5E8006ACEAB /* itemContentViewController.swift in Sources */,
+				BDF9CC871A76A49600DA5F1B /* reminderTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
