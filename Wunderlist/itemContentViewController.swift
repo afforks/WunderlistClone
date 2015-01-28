@@ -16,6 +16,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
     
     
     
+    var delegate: changeDueDateProtocol?
     
     
     @IBOutlet weak var dueDateTableView: UITableView!
@@ -241,7 +242,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                                 dateFormatter.timeZone = timeZone
                                 dateFormatter.locale = NSLocale.currentLocale()
                                 
-                                dateFormatter.dateFormat = "EEEE, MMM d, y"
+                                dateFormatter.dateFormat = "EEE, MMM d"
                                 var dueDateString = "Due \(dateFormatter.stringFromDate(dueDateParse))"
                                 
                                 
@@ -708,7 +709,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
             
             */
             
-            dateFormatter.dateFormat = "EEEE, MMM d, y"
+            dateFormatter.dateFormat = "EEE, MMM d"
             let timeZone = NSTimeZone(name: "UTC")
             
             dateFormatter.timeZone = timeZone
@@ -722,6 +723,8 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
             
             
             self.dueDateString = dueDateString
+            
+            delegate?.changeDueDate(dueDateString)
             
             self.addOrRemoveNewItemDictKeyValueToParse("dueDate", value: self.datePicker.date, remove: false)
             
@@ -780,7 +783,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
             
             let dateFormatter = NSDateFormatter()
             
-            dateFormatter.dateFormat = "H:mm, EEEE, MMM d"
+            dateFormatter.dateFormat = "H:mm, EEE, MMM d"
             
             let timeZone = NSTimeZone(name: "UTC")
             
@@ -1321,6 +1324,9 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         
     }
     
+    
+  
+    
     // if click star or checked update the dictionary in original list
     
     
@@ -1413,7 +1419,7 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
                     
                     
                     
-                    
+                
                     
                     self.itemDictionary["originalList"] = self.listName
                     
@@ -1672,11 +1678,15 @@ class itemContentViewController: UIViewController, UITableViewDelegate, addToIte
         if noteString != nil {
            
             self.addOrRemoveNewItemDictKeyValueToParse("note", value: noteString!, remove: false)
-            if self.itemDictionary["note"] != nil {
+            if  let dictionary = self.itemDictionary as Dictionary<String, AnyObject>? {
         
                 println(self.itemDictionary["note"])
                 println("NoteString:  \(noteString)")
-                self.itemDictionary["note"]! = noteString!
+                
+                if let note  = self.itemDictionary["note"] as? String {
+                          self.itemDictionary["note"]! = noteString!
+                }
+          
             }
           //
         }

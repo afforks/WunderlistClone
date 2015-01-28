@@ -11,7 +11,11 @@ import UIKit
 
 // VC with all the items inside a particular list of the user
 
-class itemsOfListTabBarController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol changeDueDateProtocol {
+    func changeDueDate(dueDate: String)
+}
+
+class itemsOfListTabBarController: UIViewController, UITableViewDelegate, UITableViewDataSource, changeDueDateProtocol {
     
     
     // the four tab bar items at the bottom
@@ -73,6 +77,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         
+        self.tableView.delegate = self
   
         self.checkedItemsTableView.hidden = true
        
@@ -933,7 +938,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate, UITabl
             
             let dateFormatter = NSDateFormatter()
             
-            dateFormatter.dateFormat = "H:MM, EEEE, MMM d"
+            dateFormatter.dateFormat = "EEEE, MMM d"
             
             let timeZone = NSTimeZone(name: "UTC")
             
@@ -953,6 +958,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate, UITabl
     
     
     func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView? {
+        
         
       
         if (self.listName == "Starred" || self.listName == "Today" || self.listName == "Week") && (tableView != checkedItemsTableView){
@@ -975,7 +981,7 @@ class itemsOfListTabBarController: UIViewController, UITableViewDelegate, UITabl
                 
                 let dateFormatter = NSDateFormatter()
                 
-                dateFormatter.dateFormat = "H:MM, EEEE, MMM d"
+                dateFormatter.dateFormat = "EEEE, MMM d"
                 
                 let timeZone = NSTimeZone(name: "UTC")
                 
@@ -1128,6 +1134,7 @@ return cell!
 
         
         
+        
         if tableView == checkedItemsTableView {
             
             
@@ -1144,6 +1151,7 @@ return cell!
             
             var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? ItemTableViewCell
             
+           
              cell!.separatorInset = UIEdgeInsetsZero
             cell!.layoutMargins = UIEdgeInsetsZero
             
@@ -1248,6 +1256,8 @@ return cell!
         
         cell!.layer.cornerRadius = 3
         
+        cell!.tag = 0
+        
         var selectedView = UIView()
         selectedView.backgroundColor = UIColor(red:0,green:0.4,blue:1,alpha:0.2)
         selectedView.layer.cornerRadius = 3
@@ -1273,7 +1283,26 @@ return cell!
             
             cell!.cellLabel!.text = itemName
             
-            cell!.detailTextLabel
+            
+            
+            var dueDate: NSDate? = listItem["dueDate"] as? NSDate
+            
+            if dueDate != nil {
+                let dateFormatter = NSDateFormatter()
+                
+                dateFormatter.dateFormat = "EEE, MMM d"
+                
+                let timeZone = NSTimeZone(name: "UTC")
+                
+                dateFormatter.timeZone = timeZone
+                
+                var dueDateString = dateFormatter.stringFromDate(dueDate!) as String
+                
+                cell!.subtitle.text = dueDateString
+                cell!.subtitle.textColor = UIColor.blueColor()
+                
+            }
+          
             
             
         }
@@ -1291,6 +1320,24 @@ return cell!
             
             cell!.cellLabel!.text = itemName
             
+            var dueDate: NSDate? = listItem["dueDate"] as? NSDate
+            
+            if dueDate != nil {
+                let dateFormatter = NSDateFormatter()
+                
+                dateFormatter.dateFormat = "EEE, MMM d"
+                
+                let timeZone = NSTimeZone(name: "UTC")
+                
+                dateFormatter.timeZone = timeZone
+                
+                var dueDateString = dateFormatter.stringFromDate(dueDate!) as String
+                
+                cell!.subtitle.text = dueDateString
+                cell!.subtitle.textColor = UIColor.blueColor()
+                
+            }
+            
         }
             
         else {
@@ -1299,6 +1346,24 @@ return cell!
             listItem = itemsDict[indexPath.section]
             var listItemString = listItem["name"]! as String
             cell!.cellLabel!.text = listItemString
+            
+            var dueDate: NSDate? = listItem["dueDate"] as? NSDate
+            
+            if dueDate != nil {
+                let dateFormatter = NSDateFormatter()
+                
+                dateFormatter.dateFormat = "EEE, MMM d"
+                
+                let timeZone = NSTimeZone(name: "UTC")
+                
+                dateFormatter.timeZone = timeZone
+                
+                var dueDateString = dateFormatter.stringFromDate(dueDate!) as String
+                
+                cell!.subtitle.text = dueDateString
+                cell!.subtitle.textColor = UIColor.blueColor()
+                
+            }
         }
         
         
@@ -1402,7 +1467,10 @@ return cell!
         }
         
         
-        
+        if cell!.cellLabel.text == "last" {
+            println("SECTION: \(indexPath.section)")
+            println("Row: \(indexPath.row)")
+        }
         
         
         
@@ -1418,6 +1486,9 @@ return cell!
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as ItemTableViewCell!
         cell!.layer.cornerRadius = 3
+        
+        // 0 = not clicked, 1 = clicked
+        cell!.tag = 1
         
         
         
@@ -1446,6 +1517,7 @@ return cell!
 
         }
         vc.itemName = itemString
+        vc.delegate = self
         
         
         
@@ -1465,13 +1537,20 @@ return cell!
                 
                 
             }
+            
+      
+            
+         
+            
             vc.listName = itemsOriginalList
             vc.starred = isStarred
             
+            vc.delegate = self
             
             NSThread.sleepForTimeInterval(0.1)
             
             self.navigationController?.pushViewController(vc, animated: true)
+            
             
             
         }
@@ -1495,6 +1574,7 @@ return cell!
             
             vc.listName = listString
             vc.starred = isStarred
+            vc.delegate = self
             
             
             if listItem["originalUser"] != nil {
@@ -1511,6 +1591,7 @@ return cell!
         else if self.listName != "Week" && self.listName != "Starred" && self.listName != "Today" {
             vc.listName = self.listName
             vc.starred = isStarred
+            vc.delegate = self
             if originalUserOfList != nil {
                 vc.originalUserOfList = originalUserOfList
                 
@@ -1521,6 +1602,7 @@ return cell!
             else {
                 vc.areWeOriginalUserOfList == true
                 vc.originalUserOfList = PFUser.currentUser()
+                vc.delegate = self
           }
            
             
@@ -2061,15 +2143,44 @@ NSLog("YES")
             itemCopy!["starred"] = "true"
             
             if self.listName == "Today" || self.listName == "Starred" || self.listName == "Week"{
+                
+                
+              
+                
+                                
                 itemsArray!.removeObjectAtIndex(row)
                 itemsArray!.insertObject(itemCopy!, atIndex: 0)
+                
             }
             
             
             else {
-            self.itemsDict.removeAtIndex(button.tag)
-            self.itemsDict.insert(itemCopy!, atIndex: 0)
+           
+                
+            
+             
+                
+            
+            
+           
+                
+                self.itemsDict.removeAtIndex(button.tag)
+                self.itemsDict.insert(itemCopy!, atIndex: 0)
+                
+         
+                    
+                    /*
+                    self.tableView.beginUpdates()
+                    var initialPath: NSIndexPath = NSIndexPath(forRow: 0, inSection: 4)
+                    var finalPath: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                    self.tableView.moveRowAtIndexPath(initialPath, toIndexPath: finalPath)
+
+                    self.tableView.endUpdates()
+*/
+                   
+                
             }
+            
             self.tableView.reloadData()
             self.addOrRemoveNewItemDictKeyValueToParse("starred", itemDict: item!, starred: "true", remove: false, user: user)
             
@@ -2101,11 +2212,9 @@ NSLog("YES")
                 var itemDict = itemsArray[row] as? Dictionary<String, AnyObject>
                 
                 
-                
                 itemsArray.removeObjectAtIndex(row)
-                 self.itemsDict.removeAtIndex(row)
+                self.itemsDict.removeAtIndex(row)
                 
-            
                 
                 
             }
@@ -2117,7 +2226,22 @@ NSLog("YES")
             }
             
             else {
+                
+                
+                
+                
+          
             self.itemsDict.removeAtIndex(button.tag)
+                
+                
+                /*
+self.tableView.deleteRowsAtIndexPaths(button.tag, withRowAnimation: UITableViewRowAnimation.Left)
+[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:0]
+withRowAnimation:UITableViewRowAnimation.Left];
+*/
+          
+                
+                
             self.itemsDict.insert(itemCopy!, atIndex: button.tag)
             }
             
@@ -2138,6 +2262,11 @@ NSLog("YES")
    
 
 
+    func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    return true // Yes, the table view can be reordered
+    }
+    
+  
 
     func addOrRemoveNewItemDictKeyValueToParse(key: String, itemDict: Dictionary<String, AnyObject>,  starred: String, remove: Bool, user: PFUser) {
         
@@ -2727,6 +2856,33 @@ NSLog("YES")
         
         
         
+        
+    }
+    
+    func changeDueDate(dueDate: String) {
+        
+    
+        println("DELEGATE WORKING")
+        var cell: ItemTableViewCell? =  tableView.viewWithTag(1) as? ItemTableViewCell
+        println(tableView.viewWithTag(1) as? AnyObject)
+        println(cell)
+
+        if cell != nil {
+            
+    
+        
+            cell!.subtitle!.text = dueDate
+            cell!.tag = 0
+                
+            
+            
+        }
+        
+    
+    
+       
+
+    
         
     }
     

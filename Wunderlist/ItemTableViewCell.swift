@@ -20,6 +20,7 @@ class ItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var checkboxButton: UIButton!
     
+    @IBOutlet weak var subtitle: UILabel!
     
     // if the button is clicked then return
    

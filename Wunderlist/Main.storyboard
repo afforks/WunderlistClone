@@ -671,8 +671,14 @@
                                                     <rect key="frame" x="259" y="12" width="21" height="19"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFM-Zo-422">
-                                                    <rect key="frame" x="40" y="11" width="211" height="21"/>
+                                                    <rect key="frame" x="40" y="11" width="211" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpW-SL-dVf">
+                                                    <rect key="frame" x="40" y="28" width="211" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -714,10 +720,12 @@
                                                 <constraint firstItem="OOf-M9-Gzh" firstAttribute="top" secondItem="3hI-Mo-Q9R" secondAttribute="topMargin" constant="4" id="Fh8-7q-R6W"/>
                                                 <constraint firstItem="ylX-9R-ILD" firstAttribute="trailing" secondItem="3hI-Mo-Q9R" secondAttribute="trailingMargin" id="GYu-jc-GZ1"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="OOf-M9-Gzh" secondAttribute="bottom" constant="5" id="JtZ-04-1ZK"/>
+                                                <constraint firstItem="qpW-SL-dVf" firstAttribute="leading" secondItem="9m1-cM-SrM" secondAttribute="trailing" constant="7" id="KKG-c3-xmo"/>
                                                 <constraint firstItem="9m1-cM-SrM" firstAttribute="leading" secondItem="3hI-Mo-Q9R" secondAttribute="leadingMargin" id="RQW-NY-LvU"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="9m1-cM-SrM" secondAttribute="bottom" constant="4" id="Zg7-aR-IoJ"/>
                                                 <constraint firstItem="OOf-M9-Gzh" firstAttribute="trailing" secondItem="3hI-Mo-Q9R" secondAttribute="trailingMargin" id="aLN-DA-KGr"/>
                                                 <constraint firstItem="gPa-aL-HZ7" firstAttribute="leading" secondItem="3hI-Mo-Q9R" secondAttribute="leadingMargin" constant="32" id="hxV-Sy-Yi8"/>
+                                                <constraint firstItem="qpW-SL-dVf" firstAttribute="top" secondItem="gPa-aL-HZ7" secondAttribute="bottom" constant="-8" id="vba-lf-s08"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -731,6 +739,7 @@
                                             <outlet property="checkboxButton" destination="9m1-cM-SrM" id="Jft-EU-v8b"/>
                                             <outlet property="starButton" destination="ylX-9R-ILD" id="2QB-zh-y0d"/>
                                             <outlet property="starImageView" destination="OOf-M9-Gzh" id="dec-cV-chh"/>
+                                            <outlet property="subtitle" destination="qpW-SL-dVf" id="gBo-u9-sAW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
